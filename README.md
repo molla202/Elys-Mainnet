@@ -54,6 +54,10 @@ make build
 mkdir -p $HOME/.elys/cosmovisor/genesis/bin
 mv /root/elys/build/elysd $HOME/.elys/cosmovisor/genesis/bin/elysd
 ```
+```
+echo "export ELYS_PORT="15"" >> $HOME/.bash_profile
+source $HOME/.bash_profile
+```
 ### 🚧System link
 ```
 sudo ln -s $HOME/.elys/cosmovisor/genesis $HOME/.elys/cosmovisor/current -f
@@ -121,10 +125,7 @@ sed -i -e "s/^pruning-interval *=.*/pruning-interval = \"19\"/" $HOME/.elys/conf
 sed -i -e "s/^indexer *=.*/indexer = \"null\"/" $HOME/.elys/config/config.toml
 ```
 ### 🚧Port Ayarları
-```
-echo "export ELYS_PORT="15"" >> $HOME/.bash_profile
-source $HOME/.bash_profile
-```
+
 ```
 sed -i.bak -e "s%:1317%:${ELYS_PORT}317%g;
 s%:8080%:${ELYS_PORT}080%g;
