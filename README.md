@@ -48,6 +48,7 @@ source $HOME/.bash_profile
 git clone https://github.com/elys-network/elys.git
 cd elys
 git checkout v1.0.0
+make build
 ```
 ```
 mkdir -p $HOME/.elys/cosmovisor/genesis/bin
