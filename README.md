@@ -132,9 +132,8 @@ s%:26660%:${G_PORT}660%g" $HOME/.elys/config/config.toml
 ```
 ### 🚧Seed
 ```
-PEERS="637077d431f618181597706810a65c826524fd74@148.251.68.103:22056,b279780f951eaf05d285a19e080f72fbb85eec11@88.218.224.57:26656"
-SEEDS="" && \
-sed -i -e "s/^seeds *=.*/seeds = \"$SEEDS\"/; s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $HOME/.elys/config/config.toml
+PEERS="9abe7b0e0227e2cd1f31b8c48a6c12c3c3672308@elys-mainnet-rpc.itrocket.net:41656,b42c60adafb47b19f0b36c58985364a897db6b85@65.109.26.242:22056,2cebaa33e41cfb504b99f0093424a9d5916f0e5e@51.178.89.172:26656,d9bfa29e0cf9c4ce0cc9c26d98e5d97228f93b0b@elys.rpc.kjnodes.com:15356"
+sed -i -e "/^\[p2p\]/,/^\[/{s/^[[:space:]]*persistent_peers *=.*/persistent_peers = \"$PEERS\"/}" $HOME/.elys/config/config.toml
 ```
 ### 🚧Snap
 ```
