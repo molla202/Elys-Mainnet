@@ -143,7 +143,7 @@ SOON
 ### 🚧Başlatalım   
 ```
 sudo systemctl daemon-reload
-sudo systemctl restart 0gchaind
+sudo systemctl restart elysd
 ```
 ### 🚧Log
 ```
