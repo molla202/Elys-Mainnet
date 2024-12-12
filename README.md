@@ -95,6 +95,12 @@ NOT: node adınızı yazınız.
 ```
 elysd init NODE-ADI-YAZ --chain-id elys-1
 ```
+```
+sed -i \
+-e "s/chain-id = .*/chain-id = \"${ELYS_CHAIN_ID}\"/" \
+-e "s/keyring-backend = .*/keyring-backend = \"os\"/" \
+-e "s/node = .*/node = \"tcp:\/\/localhost:${ELYS_PORT}657\"/" $HOME/.elys/config/client.toml
+```
 ### 🚧Genesis addrbook
 ```
 curl -o $HOME/.elys/config/genesis.json https://raw.githubusercontent.com/elys-network/networks/refs/heads/main/mainnet/genesis.json
@@ -102,7 +108,13 @@ curl -o $HOME/.elys/config/genesis.json https://raw.githubusercontent.com/elys-n
 
 ### 🚧Gas pruning ayarı
 ```
-...
+sed -i 's|minimum-gas-prices =.*|minimum-gas-prices = "0.0003uelys"|g' $HOME/.elys/config/app.toml
+sed -i -e "s/prometheus = false/prometheus = true/" $HOME/.elys/config/config.toml
+sed -i -e "s/^indexer *=.*/indexer = \"null\"/" $HOME/.elys/config/config.toml
+
+sed -i -e "s/^pruning *=.*/pruning = \"custom\"/" $HOME/.elys/config/app.toml 
+sed -i -e "s/^pruning-keep-recent *=.*/pruning-keep-recent = \"100\"/" $HOME/.elys/config/app.toml
+sed -i -e "s/^pruning-interval *=.*/pruning-interval = \"19\"/" $HOME/.elys/config/app.toml
 ```
 ### indexer null
 ```
@@ -110,25 +122,26 @@ sed -i -e "s/^indexer *=.*/indexer = \"null\"/" $HOME/.elys/config/config.toml
 ```
 ### 🚧Port Ayarları
 ```
-echo "export G_PORT="15"" >> $HOME/.bash_profile
+echo "export ELYS_PORT="15"" >> $HOME/.bash_profile
 source $HOME/.bash_profile
 ```
 ```
-sed -i.bak -e "s%:1317%:${G_PORT}317%g;
-s%:8080%:${G_PORT}080%g;
-s%:9090%:${G_PORT}090%g;
-s%:9091%:${G_PORT}091%g;
-s%:8545%:${G_PORT}545%g;
-s%:8546%:${G_PORT}546%g;
-s%:6065%:${G_PORT}065%g" $HOME/.elys/config/app.toml
+sed -i.bak -e "s%:1317%:${ELYS_PORT}317%g;
+s%:8080%:${ELYS_PORT}080%g;
+s%:9090%:${ELYS_PORT}090%g;
+s%:9091%:${ELYS_PORT}091%g;
+s%:8545%:${ELYS_PORT}545%g;
+s%:8546%:${ELYS_PORT}546%g;
+s%:6065%:${ELYS_PORT}065%g" $HOME/.elys/config/app.toml
+
 ```
 ```
-sed -i.bak -e "s%:26658%:${G_PORT}658%g;
-s%:26657%:${G_PORT}657%g;
-s%:6060%:${G_PORT}060%g;
-s%:26656%:${G_PORT}656%g;
-s%^external_address = \"\"%external_address = \"$(wget -qO- eth0.me):${G_PORT}656\"%;
-s%:26660%:${G_PORT}660%g" $HOME/.elys/config/config.toml
+sed -i.bak -e "s%:26658%:${ELYS_PORT}658%g;
+s%:26657%:${ELYS_PORT}657%g;
+s%:6060%:${ELYS_PORT}060%g;
+s%:26656%:${ELYS_PORT}656%g;
+s%^external_address = \"\"%external_address = \"$(wget -qO- eth0.me):${ELYS_PORT}656\"%;
+s%:26660%:${ELYS_PORT}660%g" $HOME/.elys/config/config.toml
 ```
 ### 🚧Seed
 ```
